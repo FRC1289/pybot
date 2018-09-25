@@ -16,5 +16,5 @@ class Breaker(Subsystem):
 
 
     def isOpen(self):
-        return breaker.get()
+        return self.breaker.get()
 

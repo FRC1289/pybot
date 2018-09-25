@@ -1,5 +1,6 @@
 import wpilib
 from wpilib.command.subsystem import Subsystem
+from ctre import WPI_TalonSRX
 import robotmap
 
 class SingleMotor(Subsystem):
@@ -12,7 +13,7 @@ class SingleMotor(Subsystem):
 
         super().__init__('SingleMotor')
 
-        self.motor = wpilib.TalonSRX(robotmap.PWM_motor)
+        self.motor = WPI_TalonSRX(robotmap.PWM_motor)
 
 
     def setSpeed(self, speed):
