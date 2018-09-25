@@ -9,6 +9,7 @@ from subsystems import breaker
 import oi
 from commands.autonomous import AutonomousProgram
 from commands.followjoystick import FollowJoystick
+from commands.RunWithSwitch import RunWithSwitch
 
 class ExampleBot(CommandBasedRobot):
     '''
@@ -29,7 +30,7 @@ class ExampleBot(CommandBasedRobot):
         self.motor = singlemotor.SingleMotor()
         self.breaker = breaker.Breaker()
 
-        self.autonomousProgram = AutonomousProgram()
+        self.autonomousProgram = RunWithSwitch() #AutonomousProgram()
         self.teleopProgram = FollowJoystick()
         
         '''
