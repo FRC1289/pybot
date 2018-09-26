@@ -38,6 +38,8 @@ class ExampleBot(CommandBasedRobot):
         '''
         self.joystick = oi.getJoystick()
 
+        wpilib.CameraServier.launch('vision.py:main')
+
 
     def autonomousInit(self):
         '''
