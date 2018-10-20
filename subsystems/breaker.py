@@ -15,6 +15,6 @@ class Breaker(Subsystem):
         self.breaker = wpilib.DigitalInput(robotmap.DIO_breaker)
 
 
-    def isOpen(self):
+    def isClosed(self):
         return self.breaker.get()
 

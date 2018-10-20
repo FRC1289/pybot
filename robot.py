@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import wpilib
-from wpilib.command import Command
+from wpilib.command import Command, Scheduler
 from commandbased import CommandBasedRobot
 
 from subsystems import singlemotor
@@ -10,6 +10,7 @@ import oi
 from commands.autonomous import AutonomousProgram
 from commands.followjoystick import FollowJoystick
 from commands.RunWithSwitch import RunWithSwitch
+from commands.CW_CCW import CW_CCW
 
 class ExampleBot(CommandBasedRobot):
     '''
@@ -30,7 +31,7 @@ class ExampleBot(CommandBasedRobot):
         self.motor = singlemotor.SingleMotor()
         self.breaker = breaker.Breaker()
 
-        self.autonomousProgram = RunWithSwitch() #AutonomousProgram()
+        self.autonomousProgram = CW_CCW(self.logger) #RunWithSwitch() #AutonomousProgram()
         self.teleopProgram = FollowJoystick()
         
         '''
@@ -39,18 +40,16 @@ class ExampleBot(CommandBasedRobot):
         '''
         self.joystick = oi.getJoystick()
 
-        wpilib.CameraServier.launch('vision.py:main')
-
-
     def autonomousInit(self):
-        '''
-        You should call start on your autonomous program here. You can
-        instantiate the program here if you like, or in robotInit as in this
-        example. You can also use a SendableChooser to have the autonomous
-        program chosen from the SmartDashboard.
-        '''
-
         self.autonomousProgram.start()
+        
+    def autonomousPeriodic(self):
+        Scheduler.getInstance().run()
+        if self.autonomousProgram.isFinished():
+            #self.logger.info('finished')
+            self.autonomousProgram = CW_CCW(self.logger)
+            self.autonomousProgram.start()
+                
 
     def teleopInit(self):
         if self.autonomousProgram is not None:

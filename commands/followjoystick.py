@@ -18,10 +18,15 @@ class FollowJoystick(Command):
         self.motor.setSpeed(0)
 
     def execute(self):
-        self.motor.setSpeed(self.getRobot().joystick.getY())
+        current_speed = self.getRobot().joystick.getY()
+        self.motor.setSpeed(current_speed)
+    
 
     def isFinished(self):
-        return False
+        if self.getRobot().joystick.getRawButton(1):
+            return True
+        else:
+            return False
 
     def end(self):
         self.motor.setSpeed(0)
